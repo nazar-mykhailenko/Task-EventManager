@@ -1,0 +1,72 @@
+﻿@model List<ToDoTask>
+@{
+    ViewData["Title"] = "Tasks";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-primary">Your Tasks</h1>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Tasks" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-square-fill"></i> &nbsp; Add Task
+            </a>
+        </div>
+    </div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                Status
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Deadline
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td width="5%">
+                    @if(item.IsDone)
+                        {
+                            <div class="text-center"><a asp-controller="Tasks" asp-action="ToggleStatus" asp-route-id="@item.ID" class="btn btn-success"><i class="bi bi-check2-square"></i></a></div>
+                        }
+                    else
+                        {
+                            <div class="text-center"><a asp-controller="Tasks" asp-action="ToggleStatus" asp-route-id="@item.ID" class="btn btn-danger"><i class="bi bi-x-square"></i></a></div>
+                        }
+                    </td>
+                <td width="20%">
+                    @item.Title
+                </td>
+                    <td width="40%">
+                        @item.Description
+                    </td>
+                <td width="15%">
+                    @item.Deadline
+                </td>              
+                <td width="20%">
+                    <div class="text-center">
+                        <a class="btn btn-primary btn-warning" asp-controller="Tasks" asp-action="Edit" asp-route-id="@item.ID"> 
+                            <i class="bi bi-pencil-square"></i> &nbsp; Edit
+                        </a>
+                            <a class="btn btn-primary btn-danger" asp-controller="Tasks" asp-action="Delete" asp-route-id="@item.ID">
+                            <i class="bi bi-trash-fill"></i> &nbsp; Delete
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>

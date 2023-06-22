@@ -1,0 +1,70 @@
+﻿@model List<Event>
+@{
+    ViewData["Title"] = "Events";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-primary">Your Events</h1>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Event" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-square-fill"></i> &nbsp; Add Event
+            </a>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+					Title
+                </th>
+                <th>
+					Description
+                </th>
+                <th>
+                    Start
+                </th>
+                <th>
+                    End
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td width="15%">
+                        @item.Title
+                    </td>
+                    <td width="35%">
+                        @item.Description
+                    </td>
+                    <td width="15%">
+                        @item.Start
+                    </td>
+                    <td width="15%">
+                        @item.End
+                    </td>
+                    <td width="20%">
+                        <div class="text-center">
+                            <a class="btn btn-primary btn-warning" asp-controller="Event" asp-action="Edit" asp-route-id="@item.Id">
+                                <i class="bi bi-pencil-square"></i> &nbsp; Edit
+                            </a>
+                            <a class="btn btn-primary btn-danger" asp-controller="Event" asp-action="Delete" asp-route-id="@item.Id">
+                                <i class="bi bi-trash-fill"></i> &nbsp; Delete
+                            </a>
+                            <a class="btn btn-secondary" target="_blank" href="https://calendar.google.com/calendar/u/0/r/eventedit?text=@item.Title&dates=@string.Format("{0:yyyyMMddHHmmssZT}",item.Start-TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now))/@string.Format("{0:yyyyMMddTHHmmssZ}",item.End-TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now))&details=@item.Description">
+                                Add to Google Calendar
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

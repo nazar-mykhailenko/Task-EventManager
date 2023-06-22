@@ -1,0 +1,45 @@
+﻿@model Event
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<form method="post">
+    <div class="p-3 mt-4">
+        <div class="row pb-2">
+            <h1 class="text-primary">Delete Event</h1>
+        </div>
+        <input hidden asp-for="UserId" value="@TempData["UserId"]" />
+        <div class="mb-3">
+            <label asp-for="Title"></label>
+            <input disabled asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description"></label>
+            <textarea disabled asp-for="Description" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Start"></label>
+            <input disabled asp-for="Start" class="form-control" />
+            <span asp-validation-for="Start" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="End"></label>
+            <input disabled asp-for="End" class="form-control" />
+            <span asp-validation-for="End" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-danger">Delete Event</button>
+        <a asp-controller="Events" asp-action="Index" class="btn btn-secondary">
+            Back to Events
+        </a>
+    </div>
+</form>
+
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
